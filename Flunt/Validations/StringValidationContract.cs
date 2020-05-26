@@ -22,6 +22,17 @@ namespace Flunt.Validations
             return this;
         }
 
+        public Contract SplitNotResult(string val, string charSplit, string property, string message)
+        {
+            if (string.IsNullOrWhiteSpace(val))
+                return this;
+
+            var result = val.Split(Convert.ToChar(charSplit));
+            if (result.Length == 1)
+                AddNotification(property, message);
+
+            return this;
+        }
 
         public Contract IsNullOrEmpty(string val, string property, string message)
         {

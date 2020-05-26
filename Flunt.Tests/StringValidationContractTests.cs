@@ -44,6 +44,26 @@ namespace Flunt.Tests
 
         [TestMethod]
         [TestCategory("StringValidation")]
+        public void SplitNotResult()
+        {
+            var right = new Contract()
+                .Requires()
+                .IsNotNullOrWhiteSpace("Some valid string", "string", "String is Null");
+            Assert.AreEqual(true, right.Valid);
+
+            var wrong = new Contract()
+                .Requires()
+                .SplitNotResult(null, "|", "string", "String split not result")
+                .SplitNotResult("", "|", "string", "String split not result")
+                .SplitNotResult("value,text,objects", ";", "string", "String split not result");
+
+            Assert.AreEqual(false, wrong.Valid);
+            Assert.AreEqual(1, wrong.Notifications.Count);
+
+        }
+
+        [TestMethod]
+        [TestCategory("StringValidation")]
         public void IsNullOrEmpty()
         {
             var right = new Contract()
